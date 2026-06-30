@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://api.dexscreener.com">
+<link rel="preconnect" href="https://api.gopluslabs.io">
+<link rel="preconnect" href="https://api.geckoterminal.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>ChainLens — Free Token Safety Scanner | 90+ Checks | Crypto Risk Analysis</title>
+<meta name="description" content="Free multi-chain token investigation tool. 90+ checks across 10+ APIs detect sell restrictions, artificial volume, supply concentration, MEV risk and more. Solana, Ethereum, BNB Chain and Base.">
+<meta property="og:title" content="ChainLens — Free Token Safety Scanner">
+<meta property="og:description" content="90+ checks. 9 risk patterns. 10+ free APIs. Analyze any crypto token before you trade.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="docs/og-banner.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChainLens — Free Token Safety Scanner">
+<meta name="twitter:description" content="Free crypto token safety scanner. Detect sell restrictions, fake volume and supply concentration. No signup needed.">
+<meta name="twitter:image" content="docs/og-banner.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ChainLens","description":"Free multi-chain token safety scanner with 90+ checks across 10+ APIs","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<meta name="theme-color" content="#000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ChainLens">
+<link rel="apple-touch-icon" href="android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="manifest" href="site.webmanifest">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/core.css?v=41">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src https://cdn.jsdelivr.net https://fonts.gstatic.com; connect-src *; img-src * data:; frame-src https://www.geckoterminal.com https://dexscreener.com">
+</head>
+<body>
+<div class="scan-overlay" id="overlay"><div class="ov-inner"><div class="ov-spin"><i class="bi bi-shield-check"></i></div><div class="ov-label">Scanning token...</div><div class="ov-sub" id="ovSub">Initializing</div></div></div>
+
+<div class="app">
+<header class="hdr"><div class="hdr-inner">
+  <a href="./" class="logo"><div class="logo-mark"><i class="bi bi-search"></i></div><div><h1>Chain<span>Lens</span></h1><small>90+ Checks · Every token is guilty until proven innocent</small></div></a>
+  <button class="menu-toggle" id="menuToggle"><i class="bi bi-list"></i></button>
+  <div class="hdr-nav" id="hdrNav">
+    <button class="hdr-link" onclick="showPanel('history')"><i class="bi bi-clock-history"></i> History</button>
+    <button class="hdr-link" onclick="showPanel('watchlist')"><i class="bi bi-star"></i> Watchlist</button>
+    <a href="https://github.com/Finland93/ChainLens" class="hdr-link" target="_blank" rel="noopener"><i class="bi bi-github"></i> GitHub</a>
+  </div>
+  <div class="hdr-stats"><div class="hs"><div class="hs-v" id="hScanned">0</div><div class="hs-l">Scanned</div></div><div class="hs"><div class="hs-v" id="hThreats">0</div><div class="hs-l">Threats</div></div></div>
+  <div class="chain-pills">
+    <button class="cp active" data-chain="solana"><span class="cd" style="--c:#9945FF"></span>Solana</button>
+    <button class="cp" data-chain="ethereum"><span class="cd" style="--c:#627EEA"></span>Ethereum</button>
+    <button class="cp" data-chain="bsc"><span class="cd" style="--c:#F0B90B"></span>BNB Chain</button>
+    <button class="cp" data-chain="base"><span class="cd" style="--c:#0052FF"></span>Base</button>
+  </div>
+</div></header>
+
+<div class="search-area"><div class="search-box">
+  <i class="bi bi-search s-icon"></i>
+  <input id="inp" class="search-input" placeholder="Paste any token address..." autocomplete="off" spellcheck="false">
+  <button class="scan-btn" id="scanBtn"><i class="bi bi-radar"></i><span>Scan</span></button>
+</div></div>
+
+<div class="main-grid">
+<!-- CONTENT (shown first on mobile) -->
+<div class="analysis-panel">
+
+<!-- EMPTY STATE -->
+<div id="emptyState" class="empty-main">
+  <div class="e-icon"><i class="bi bi-shield-exclamation"></i></div>
+  <h2>Paste a token address to begin</h2>
+  <p>10+ APIs · 90+ individual checks · 9 risk patterns · 4 chains supported</p>
+  <div id="exChips" class="ex-chips"></div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon"><i class="bi bi-robot"></i></div>
+      <div class="feature-text"><strong>Bot Detection</strong><span>12 checks analyzing buyer ratios, trade streaks, and spam patterns across all timeframes</span></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="--fc:var(--red)"><i class="bi bi-shield-x"></i></div>
+      <div class="feature-text"><strong>Sell Restriction Check</strong><span>Cross-validated by Honeypot.is + GoPlus — simulates actual buy and sell transactions</span></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="--fc:var(--yel)"><i class="bi bi-clipboard-data"></i></div>
+      <div class="feature-text"><strong>300 Trade Analysis</strong><span>Identical volumes, same-second trades, size distribution, consecutive streaks</span></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="--fc:var(--pur)"><i class="bi bi-person-badge"></i></div>
+      <div class="feature-text"><strong>Deployer Investigation</strong><span>Creator's other tokens, dead token rate, GoPlus security flags on wallet</span></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="--fc:var(--cyn)"><i class="bi bi-people"></i></div>
+      <div class="feature-text"><strong>Holder Analysis</strong><span>12 checks: clusters, insiders, exchange wallets excluded, LP separated</span></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="--fc:var(--org)"><i class="bi bi-file-earmark-lock"></i></div>
+      <div class="feature-text"><strong>25 Contract Checks</strong><span>Hidden owner, self-destruct, slippage modification, LP lock verification</span></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="--fc:var(--grn)"><i class="bi bi-chat-quote"></i></div>
+      <div class="feature-text"><strong>Narrative Verdict</strong><span>One clear sentence explaining exactly what was found and what it means</span></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="--fc:var(--blu)"><i class="bi bi-share"></i></div>
+      <div class="feature-text"><strong>Share & Protect</strong><span>Share evidence-based reports to warn your community</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results" id="results">
+<div id="tokenHdr"></div>
+<div id="warningBanner" style="display:none"></div>
+<canvas id="shareCard" width="600" height="315" style="display:none"></canvas>
+
+<div class="share-bar" id="shareBar" style="display:none">
+  <button class="sh-btn" id="copyBtn" onclick="copyLink()"><i class="bi bi-link-45deg"></i> Copy Link</button>
+  <a class="sh-btn" id="shareTwitter" href="#" target="_blank" rel="nofollow noopener"><i class="bi bi-twitter-x"></i> X</a>
+  <a class="sh-btn" id="shareTelegram" href="#" target="_blank" rel="nofollow noopener"><i class="bi bi-telegram"></i> TG</a>
+  <button class="sh-btn" id="favBtn" onclick="toggleFav()"><i class="bi bi-star"></i> Save</button>
+  <button class="sh-btn" onclick="downloadShareCard()"><i class="bi bi-image"></i> Card</button>
+  <span class="sh-score" id="shareScore"></span>
+</div>
+
+<ul class="tabs">
+  <li><button class="tab active" data-t="overview" onclick="setTab('overview',this)"><i class="bi bi-speedometer2"></i><span>Overview</span></button></li>
+  <li><button class="tab" data-t="details" onclick="setTab('details',this)"><i class="bi bi-card-list"></i><span>Details</span></button></li>
+  <li><button class="tab" data-t="bots" onclick="setTab('bots',this)"><i class="bi bi-robot"></i><span>Bots</span></button></li>
+  <li><button class="tab" data-t="holders" onclick="setTab('holders',this)"><i class="bi bi-people"></i><span>Holders</span> <span class="tab-badge" id="tbHold">0</span></button></li>
+  <li><button class="tab" data-t="contract" onclick="setTab('contract',this)"><i class="bi bi-file-earmark-lock"></i><span>Contract</span></button></li>
+  <li><button class="tab" data-t="copycat" onclick="setTab('copycat',this)"><i class="bi bi-copy"></i><span>Copycat</span> <span class="tab-badge" id="tbCopy">0</span></button></li>
+  <li><button class="tab" data-t="chart" onclick="setTab('chart',this)"><i class="bi bi-graph-up"></i><span>Chart & Trades</span></button></li>
+  <li><button class="tab" data-t="links" onclick="setTab('links',this)"><i class="bi bi-link-45deg"></i><span>Links</span></button></li>
+</ul>
+
+<!-- TAB: OVERVIEW -->
+<div class="tp active" id="tp-overview">
+<div class="overview-grid">
+  <div class="overview-left">
+    <div class="card-s"><h3 class="tab-h"><i class="bi bi-speedometer2"></i> Trust Score</h3><div id="scoreArea"></div></div>
+    <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-bar-chart-steps"></i> Breakdown</h3><div id="breakdownArea"></div></div>
+  </div>
+  <div class="overview-right">
+    <div class="card-s"><h3 class="tab-h"><i class="bi bi-fingerprint"></i> Risk Pattern Analysis (9 patterns)</h3><div id="patternsArea"></div></div>
+  </div>
+</div>
+<div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-exclamation-triangle"></i> All Risk Signals</h3><div id="risksArea"></div></div>
+<div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-pie-chart"></i> Supply Distribution</h3><div id="distArea"></div></div>
+</div>
+
+<!-- TAB: ALL DETAILS -->
+<div class="tp" id="tp-details">
+<div class="card-s"><h3 class="tab-h"><i class="bi bi-card-list"></i> Token Details</h3><div id="detailsArea"></div></div>
+</div>
+
+<!-- TAB: BOT ANALYSIS -->
+<div class="tp" id="tp-bots"><div id="botArea"></div>
+</div>
+
+<!-- TAB: HOLDERS -->
+<div class="tp" id="tp-holders">
+<div class="card-s"><h3 class="tab-h"><i class="bi bi-people"></i> Top Holders</h3><div class="table-wrap"><table class="tbl"><thead><tr><th>#</th><th>Wallet</th><th>Share</th><th>Bar</th><th>Flags</th></tr></thead><tbody id="holdersBody"></tbody></table></div></div>
+<div id="lpHoldersArea"></div>
+<div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-pie-chart"></i> Holder Map</h3><div id="bubbleArea"></div></div>
+<div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-diagram-3"></i> Wallet Clusters</h3><div id="clusterArea"></div></div>
+</div>
+
+<!-- TAB: CONTRACT -->
+<div class="tp" id="tp-contract">
+<div class="card-s"><h3 class="tab-h"><i class="bi bi-file-earmark-lock"></i> Security Checks</h3><div id="contractArea"></div></div>
+<div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-droplet-half"></i> Liquidity</h3><div id="lpArea"></div></div>
+<div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-person-badge"></i> Deployer</h3><div id="deployerArea"></div></div>
+</div>
+
+<!-- TAB: COPYCAT -->
+<div class="tp" id="tp-copycat">
+<div class="card-s"><h3 class="tab-h"><i class="bi bi-copy"></i> Copycat &amp; Clone Detection</h3><div id="copycatArea"></div></div>
+</div>
+
+<!-- TAB: CHART & TRADES (stacked) -->
+<div class="tp" id="tp-chart">
+  <div class="card-s"><h3 class="tab-h"><i class="bi bi-activity"></i> Trading Activity</h3><div id="tradesArea"></div></div>
+  <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-graph-up"></i> Price Chart</h3><div id="chartArea" style="min-height:460px"></div></div>
+</div>
+
+<!-- TAB: LINKS & INFO -->
+<div class="tp" id="tp-links"><div id="linksArea"></div>
+<div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-activity"></i> API Transparency</h3><div id="apiArea"></div></div>
+</div>
+
+</div><!-- /results -->
+</div><!-- /analysis-panel -->
+
+<!-- FEED (appears after results on mobile, sidebar on desktop) -->
+<div class="feed-panel">
+  <div class="feed-tabs">
+    <div class="feed-tab active"><i class="bi bi-broadcast-pin"></i> New Tokens</div>
+    <div class="feed-r"><span class="live-dot"></span><span id="feedTimer">60s</span></div>
+  </div>
+  <div class="feed-body" id="feedBody"><div class="fe"><div class="spinner-border spinner-border-sm"></div></div></div>
+</div>
+
+</div><!-- /main-grid -->
+
+<!-- HISTORY / WATCHLIST PANEL -->
+<div class="panel-overlay" id="panelOverlay" onclick="if(event.target===this)closePanel()" style="display:none">
+<div class="panel-modal">
+  <div class="pm-hdr">
+    <div class="pm-tabs">
+      <button class="pm-tab active" onclick="switchPanel('history',this)"><i class="bi bi-clock-history"></i> History</button>
+      <button class="pm-tab" onclick="switchPanel('watchlist',this)"><i class="bi bi-star"></i> Watchlist</button>
+    </div>
+    <button class="dm-close" onclick="closePanel()"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="pm-notice"><i class="bi bi-shield-lock"></i> Zero Knowledge — all data stored locally on your device. We never see it.</div>
+  <div class="pm-body" id="panelBody"></div>
+  <div class="pm-footer">
+    <button class="pm-clear" id="panelClear" onclick="clearPanelData()"><i class="bi bi-trash3"></i> Clear all</button>
+  </div>
+</div>
+</div>
+
+<footer class="ftr">
+  <div class="ftr-main">
+    <span class="ftr-brand">ChainLens v4.0.1 — Free Token Safety Scanner</span>
+    <span class="ftr-sources">Data: DexScreener · GeckoTerminal · RugCheck · Honeypot.is · GoPlus Security · Jupiter · CoinGecko · Solscan · Birdeye · De.Fi</span>
+  </div>
+  <div class="ftr-disclaimer">
+    <p><strong>Disclaimer:</strong> ChainLens is an independent research tool that provides automated risk analysis based on publicly available blockchain data. It does not constitute financial, investment, legal, or tax advice. No score, verdict, or analysis guarantees the safety or profitability of any token. Cryptocurrency investments carry significant risk including total loss of capital. Always conduct your own research (DYOR) and consult qualified professionals before making financial decisions.</p>
+  </div>
+  <div class="ftr-links">
+    <a href="https://github.com/Finland93/ChainLens" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/Finland93/ChainLens/issues" target="_blank" rel="noopener">Report a bug</a>
+    <a href="https://github.com/Finland93/ChainLens#readme" target="_blank" rel="noopener">Docs</a>
+  </div>
+  <span class="ftr-copy">© 2025–2026 ChainLens · MIT Licensed · Not financial advice.</span>
+</footer>
+</div>
+
+<script src="js/chains.js?v=41" defer></script>
+<script src="js/api.js?v=41" defer></script>
+<script src="js/analysis.js?v=41" defer></script>
+<script src="js/feed.js?v=41" defer></script>
+<script src="js/render.js?v=41" defer></script>
+<script src="js/storage.js?v=41" defer></script>
+<script src="js/app.js?v=41" defer></script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+document.getElementById('menuToggle')?.addEventListener('click',function(){document.getElementById('hdrNav')?.classList.toggle('open')});
+document.addEventListener('click',function(e){var nav=document.getElementById('hdrNav'),btn=document.getElementById('menuToggle');if(nav&&btn&&!nav.contains(e.target)&&!btn.contains(e.target))nav.classList.remove('open')});
+</script>
+</body>
+</html>

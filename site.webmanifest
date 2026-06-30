@@ -1,0 +1,26 @@
+{
+  "name": "ChainLens — Token Safety Scanner",
+  "short_name": "ChainLens",
+  "description": "Free token investigation tool. 90+ checks across 10+ APIs. Detect sell restrictions, fake volume, and supply concentration.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#060710",
+  "theme_color": "#060710",
+  "orientation": "any",
+  "categories": ["finance", "utilities"],
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
