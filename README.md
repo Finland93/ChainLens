@@ -9,6 +9,13 @@
 </p>
 
 <p align="center">
+  <a href="https://finland93.github.io/ChainLens/">
+    <img src="https://img.shields.io/badge/%E2%96%B6%20Live%20Demo-Open%20ChainLens-8b5cf6?style=for-the-badge" alt="Live Demo — open ChainLens in your browser" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://finland93.github.io/ChainLens/">Live demo</a> ·
   <a href="#-quick-start">Quick start</a> ·
   <a href="#-what-it-detects">What it detects</a> ·
   <a href="#️-how-it-works">How it works</a> ·
@@ -36,6 +43,8 @@ ChainLens is a **client-side-only** crypto token safety scanner. Paste any token
 - **No signup. No API keys. No wallet connection. No backend.**
 - Pure HTML/CSS/JS — clone it, open `index.html`, done.
 - Every API call goes **directly from your browser** to public data sources. Your scans never touch a server.
+
+> **Try it now:** [**finland93.github.io/ChainLens**](https://finland93.github.io/ChainLens/) — nothing to install, runs entirely in your browser.
 
 > **Every token is guilty until proven innocent.**
 
@@ -123,7 +132,9 @@ Every scan is resilient: any API can fail and the scan still completes, with an 
 
 ## 🚀 Quick start
 
-No build tools, no dependencies — it's static.
+**Fastest way — [open the live version →](https://finland93.github.io/ChainLens/)** No install, no clone; it runs entirely in your browser at `finland93.github.io/ChainLens`.
+
+Prefer to run it yourself? It's static — no build tools, no dependencies.
 
 ```bash
 # Clone
@@ -145,7 +156,7 @@ Then paste a token address (try **BONK** on Solana or **PEPE** on Ethereum) and 
 
 ### Deploy your own
 
-Because it's fully static, you can host it anywhere — GitHub Pages, Netlify, Vercel, Cloudflare Pages — by serving the repository root. No environment variables, no server.
+Because it's fully static, you can host it anywhere — GitHub Pages, Netlify, Vercel, Cloudflare Pages — by serving the repository root. No environment variables, no server. (The [live demo](https://finland93.github.io/ChainLens/) itself runs on GitHub Pages straight from this repo.)
 
 ---
 
