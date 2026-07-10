@@ -35,10 +35,91 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/core.css?v=41">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src https://cdn.jsdelivr.net https://fonts.gstatic.com; connect-src *; img-src * data:; frame-src https://www.geckoterminal.com https://dexscreener.com https://acceptable.a-ads.com https://a-ads.com">
+<style>
+/* ===== GMGN.AI PROMO BANNER ===== */
+.gmgn-banner{
+  max-width:1400px;
+  margin:0 auto 18px;
+  padding:0 16px;
+}
+.gmgn-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:14px 20px;
+  border-radius:14px;
+  text-decoration:none;
+  background:linear-gradient(135deg,rgba(153,69,255,.14),rgba(0,82,255,.10));
+  border:1px solid rgba(153,69,255,.30);
+  position:relative;
+  overflow:hidden;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.gmgn-inner::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(153,69,255,.12) 50%,transparent 70%);
+  transform:translateX(-100%);
+  transition:transform .6s;
+}
+.gmgn-inner:hover{
+  border-color:rgba(153,69,255,.65);
+  transform:translateY(-1px);
+  box-shadow:0 6px 24px rgba(153,69,255,.18);
+}
+.gmgn-inner:hover::before{transform:translateX(100%)}
+.gmgn-left{display:flex;align-items:center;gap:14px;min-width:0}
+.gmgn-icon{
+  flex-shrink:0;
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  border-radius:11px;
+  font-size:20px;
+  color:#fff;
+  background:linear-gradient(135deg,#9945FF,#0052FF);
+  box-shadow:0 3px 12px rgba(153,69,255,.4);
+}
+.gmgn-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.gmgn-text strong{
+  font-family:'Outfit',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  color:#fff;
+  letter-spacing:-.2px;
+}
+.gmgn-dot{color:#9945FF}
+.gmgn-text span{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  color:rgba(255,255,255,.62);
+  line-height:1.4;
+}
+.gmgn-cta{
+  flex-shrink:0;
+  display:flex;align-items:center;gap:7px;
+  padding:9px 18px;
+  border-radius:10px;
+  font-family:'Outfit',sans-serif;
+  font-weight:600;
+  font-size:13.5px;
+  color:#fff;
+  background:linear-gradient(135deg,#9945FF,#7d3ce8);
+  white-space:nowrap;
+  transition:filter .2s;
+}
+.gmgn-inner:hover .gmgn-cta{filter:brightness(1.12)}
+.gmgn-cta .bi{transition:transform .2s}
+.gmgn-inner:hover .gmgn-cta .bi{transform:translateX(3px)}
+@media(max-width:640px){
+  .gmgn-inner{flex-direction:column;align-items:stretch;text-align:center;padding:14px 16px;gap:12px}
+  .gmgn-left{flex-direction:column;text-align:center;gap:10px}
+  .gmgn-cta{justify-content:center}
+}
+</style>
 </head>
 <body>
 <div class="scan-overlay" id="overlay"><div class="ov-inner"><div class="ov-spin"><i class="bi bi-shield-check"></i></div><div class="ov-label">Scanning token...</div><div class="ov-sub" id="ovSub">Initializing</div></div></div>
-
 <div class="app">
 <header class="hdr"><div class="hdr-inner">
   <a href="./" class="logo"><div class="logo-mark"><i class="bi bi-search"></i></div><div><h1>Chain<span>Lens</span></h1><small>90+ Checks · Every token is guilty until proven innocent</small></div></a>
@@ -56,17 +137,28 @@
     <button class="cp" data-chain="base"><span class="cd" style="--c:#0052FF"></span>Base</button>
   </div>
 </div></header>
-
 <div class="search-area"><div class="search-box">
   <i class="bi bi-search s-icon"></i>
   <input id="inp" class="search-input" placeholder="Paste any token address..." autocomplete="off" spellcheck="false">
   <button class="scan-btn" id="scanBtn"><i class="bi bi-radar"></i><span>Scan</span></button>
 </div></div>
-
+<!-- BEGIN GMGN.AI PROMO BANNER -->
+<div class="gmgn-banner">
+  <a href="https://gmgn.ai/r/HpBjsZsY" target="_blank" rel="noopener sponsored" class="gmgn-inner">
+    <div class="gmgn-left">
+      <div class="gmgn-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+      <div class="gmgn-text">
+        <strong>Scanned it. Now trade it on GMGN<span class="gmgn-dot">.</span>ai</strong>
+        <span>Fastest meme sniping · copy trading · limit orders across Solana, ETH, Base &amp; BNB</span>
+      </div>
+    </div>
+    <div class="gmgn-cta">Trade Now <i class="bi bi-arrow-right"></i></div>
+  </a>
+</div>
+<!-- END GMGN.AI PROMO BANNER -->
 <div class="main-grid">
 <!-- CONTENT (shown first on mobile) -->
 <div class="analysis-panel">
-
 <!-- EMPTY STATE -->
 <div id="emptyState" class="empty-main">
   <div class="e-icon"><i class="bi bi-shield-exclamation"></i></div>
@@ -114,13 +206,11 @@
     </div>
   </div>
 </div>
-
 <!-- RESULTS -->
 <div class="results" id="results">
 <div id="tokenHdr"></div>
 <div id="warningBanner" style="display:none"></div>
 <canvas id="shareCard" width="600" height="315" style="display:none"></canvas>
-
 <div class="share-bar" id="shareBar" style="display:none">
   <button class="sh-btn" id="copyBtn" onclick="copyLink()"><i class="bi bi-link-45deg"></i> Copy Link</button>
   <a class="sh-btn" id="shareTwitter" href="#" target="_blank" rel="nofollow noopener"><i class="bi bi-twitter-x"></i> X</a>
@@ -129,14 +219,12 @@
   <button class="sh-btn" onclick="downloadShareCard()"><i class="bi bi-image"></i> Card</button>
   <span class="sh-score" id="shareScore"></span>
 </div>
-
 <!-- BEGIN AADS AD UNIT 2447211 -->
 <div class="aads-ad" style="width:100%;margin:4px auto 18px;">
   <iframe data-aa="2447211" src="//acceptable.a-ads.com/2447211/?size=Adaptive"
           style="border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto"></iframe>
 </div>
 <!-- END AADS AD UNIT 2447211 -->
-
 <ul class="tabs">
   <li><button class="tab active" data-t="overview" onclick="setTab('overview',this)"><i class="bi bi-speedometer2"></i><span>Overview</span></button></li>
   <li><button class="tab" data-t="details" onclick="setTab('details',this)"><i class="bi bi-card-list"></i><span>Details</span></button></li>
@@ -147,7 +235,6 @@
   <li><button class="tab" data-t="chart" onclick="setTab('chart',this)"><i class="bi bi-graph-up"></i><span>Chart & Trades</span></button></li>
   <li><button class="tab" data-t="links" onclick="setTab('links',this)"><i class="bi bi-link-45deg"></i><span>Links</span></button></li>
 </ul>
-
 <!-- TAB: OVERVIEW -->
 <div class="tp active" id="tp-overview">
 <div class="overview-grid">
@@ -162,16 +249,13 @@
 <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-exclamation-triangle"></i> All Risk Signals</h3><div id="risksArea"></div></div>
 <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-pie-chart"></i> Supply Distribution</h3><div id="distArea"></div></div>
 </div>
-
 <!-- TAB: ALL DETAILS -->
 <div class="tp" id="tp-details">
 <div class="card-s"><h3 class="tab-h"><i class="bi bi-card-list"></i> Token Details</h3><div id="detailsArea"></div></div>
 </div>
-
 <!-- TAB: BOT ANALYSIS -->
 <div class="tp" id="tp-bots"><div id="botArea"></div>
 </div>
-
 <!-- TAB: HOLDERS -->
 <div class="tp" id="tp-holders">
 <div class="card-s"><h3 class="tab-h"><i class="bi bi-people"></i> Top Holders</h3><div class="table-wrap"><table class="tbl"><thead><tr><th>#</th><th>Wallet</th><th>Share</th><th>Bar</th><th>Flags</th></tr></thead><tbody id="holdersBody"></tbody></table></div></div>
@@ -179,33 +263,27 @@
 <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-pie-chart"></i> Holder Map</h3><div id="bubbleArea"></div></div>
 <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-diagram-3"></i> Wallet Clusters</h3><div id="clusterArea"></div></div>
 </div>
-
 <!-- TAB: CONTRACT -->
 <div class="tp" id="tp-contract">
 <div class="card-s"><h3 class="tab-h"><i class="bi bi-file-earmark-lock"></i> Security Checks</h3><div id="contractArea"></div></div>
 <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-droplet-half"></i> Liquidity</h3><div id="lpArea"></div></div>
 <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-person-badge"></i> Deployer</h3><div id="deployerArea"></div></div>
 </div>
-
 <!-- TAB: COPYCAT -->
 <div class="tp" id="tp-copycat">
 <div class="card-s"><h3 class="tab-h"><i class="bi bi-copy"></i> Copycat &amp; Clone Detection</h3><div id="copycatArea"></div></div>
 </div>
-
 <!-- TAB: CHART & TRADES (stacked) -->
 <div class="tp" id="tp-chart">
   <div class="card-s"><h3 class="tab-h"><i class="bi bi-activity"></i> Trading Activity</h3><div id="tradesArea"></div></div>
   <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-graph-up"></i> Price Chart</h3><div id="chartArea" style="min-height:460px"></div></div>
 </div>
-
 <!-- TAB: LINKS & INFO -->
 <div class="tp" id="tp-links"><div id="linksArea"></div>
 <div class="card-s mt-3"><h3 class="tab-h"><i class="bi bi-activity"></i> API Transparency</h3><div id="apiArea"></div></div>
 </div>
-
 </div><!-- /results -->
 </div><!-- /analysis-panel -->
-
 <!-- FEED (appears after results on mobile, sidebar on desktop) -->
 <div class="feed-panel">
   <div class="feed-tabs">
@@ -220,9 +298,7 @@
   </div>
   <!-- END AADS AD UNIT 2447211 -->
 </div>
-
 </div><!-- /main-grid -->
-
 <!-- HISTORY / WATCHLIST PANEL -->
 <div class="panel-overlay" id="panelOverlay" onclick="if(event.target===this)closePanel()" style="display:none">
 <div class="panel-modal">
@@ -240,14 +316,12 @@
   </div>
 </div>
 </div>
-
 <!-- BEGIN AADS AD UNIT 2447211 -->
 <div class="aads-ad" style="width:100%;margin:32px auto 8px;">
   <iframe data-aa="2447211" src="//acceptable.a-ads.com/2447211/?size=Adaptive"
           style="border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto"></iframe>
 </div>
 <!-- END AADS AD UNIT 2447211 -->
-
 <footer class="ftr">
   <div class="ftr-main">
     <span class="ftr-brand">ChainLens v4.0.1 — Free Token Safety Scanner</span>
@@ -264,7 +338,6 @@
   <span class="ftr-copy">© 2025–2026 ChainLens · MIT Licensed · Not financial advice.</span>
 </footer>
 </div>
-
 <script src="js/chains.js?v=41" defer></script>
 <script src="js/api.js?v=41" defer></script>
 <script src="js/analysis.js?v=41" defer></script>
